@@ -52,6 +52,42 @@ app.get(`/api/travel/ascendant`, (req, res) => {
     })
 });
 
+
+app.get(`/api/travel/citymar`, (req, res) => {
+    connection.query(`SELECT name, city FROM participants WHERE city LIKE "Mar%"`, (err, results) => {
+        if (err) {
+            res.status(500).send('Erreur lors de la récupération des données');
+        } else {
+            res.json(results);
+        }
+
+    })
+});
+
+
+app.get(`/api/travel/names`, (req, res) => {
+    connection.query(`SELECT name FROM participants WHERE name LIKE "S%"`, (err, results) => {
+        if (err) {
+            res.status(500).send('Erreur lors de la récupération des données');
+        } else {
+            res.json(results);
+        }
+
+    })
+});
+
+
+app.get(`/api/travel/birthday`, (req, res) => {
+    connection.query(`SELECT name, birthday FROM participants WHERE birthday > "1990-01-01"`, (err, results) => {
+        if (err) {
+            res.status(500).send('Erreur lors de la récupération des données');
+        } else {
+            res.json(results);
+        }
+
+    })
+});
+
 app.post(`/api/travel`, (req, res) => {
     const formData = req.body
     connection.query(`INSERT INTO participants SET ?`, formData, (err, results) => {
